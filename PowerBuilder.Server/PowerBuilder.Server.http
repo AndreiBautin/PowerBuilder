@@ -1,0 +1,6 @@
+@PowerBuilder.Server_HostAddress = http://localhost:5093
+
+GET {{PowerBuilder.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

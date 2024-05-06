@@ -1,0 +1,116 @@
+/* Glassmorphism styling */
+body {
+    background-image: url('/src/assets/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    color: #ffffff;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden; /* Prevent vertical scrolling */
+}
+
+.glass-box {
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: transform 0.3s ease;
+    transform-style: preserve-3d;
+}
+
+    .glass-box:hover {
+        transform: rotateY(5deg) rotateX(-5deg);
+    }
+
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 1rem;
+}
+
+.chart-box {
+    padding: 0.5rem;
+    border-radius: 8px;
+    width: 90%;
+    flex-grow: 1;
+}
+
+.training-block-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+}
+
+.training-block {
+    padding: 0.8rem;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+}
+
+.training-block-selected {
+    border: 2px solid #82ca9d;
+}
+
+.navigation-arrows {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow-button {
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: none;
+    cursor: pointer;
+    padding: 0.3rem 0.5rem;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+    .arrow-button:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+
+.sessions-list {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1;
+}
+
+.sessions-list-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.4rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+    .sessions-list-item:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+
+@media screen and (max-width: 768px) {
+    .chart-box,
+    .training-block-section {
+        width: 100%;
+    }
+
+    .arrow-button {
+        padding: 0.2rem 0.4rem;
+    }
+}
