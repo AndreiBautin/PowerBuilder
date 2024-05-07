@@ -8,7 +8,7 @@ const TrainingSessionsNavigation = ({ selectedWeek, navigateToTrackWorkout }) =>
     return (
         <Box className="sessions-list">
             <Typography variant="h6" align="center" gutterBottom>
-                Training Sessions
+                Week {selectedWeek + 1}
             </Typography>
             {sessions.map((session, index) => (
                 <Box
