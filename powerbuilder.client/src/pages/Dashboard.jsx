@@ -2,8 +2,6 @@
 import React, { useState } from "react";
 import { Container, Box, Typography, Tabs, Tab } from "@mui/material";
 import BlockLineChart from "../components/BlockLineChart";
-import PersonalBestChart from "../components/PersonalBestChart";
-import RecentWorkoutsChart from "../components/RecentWorkoutsChart";
 import TrainingSessionsNavigation from "../components/TrainingSessionsNavigation";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -35,36 +33,21 @@ const Dashboard = () => {
     const [selectedWeek, setSelectedWeek] = useState(0);
     const [tabValue, setTabValue] = useState(0);
 
-    const handleWeekChange = (newWeek) => setSelectedWeek(newWeek);
     const handleChange = (event, newValue) => setTabValue(newValue);
-
-    const navigateToTrackWorkout = (session) => {
-        navigate(`/trackworkout/${session}`);
-    };
 
     return (
         <Container maxWidth="md" component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Typography variant="h4" align="center" gutterBottom>
                 PowerBuilder Dashboard
             </Typography>
-            <Box className="glass-box" sx={{ width: "100%" }}>
-                <Tabs value={tabValue} onChange={handleChange} indicatorColor="primary" textColor="inherit" centered>
+            <Box className="glass-box" sx={{ width: "100%", height: "100vh", overflow: "auto" }}>
+                <Tabs value={tabValue} onChange={handleChange} variant="scrollable" scrollButtons allowScrollButtonsMobile>
                     <Tab label="MacroCycle Overview" {...a11yProps(0)} />
-                    <Tab label="Training Sessions" {...a11yProps(1)} />
-                    <Tab label="Personal Bests" {...a11yProps(2)} />
-                    <Tab label="Recent Workouts" {...a11yProps(3)} />
+                    <Tab label="Settings" {...a11yProps(1)} onClick={() => navigate("/settings")} />
                 </Tabs>
                 <TabPanel value={tabValue} index={0}>
                     <BlockLineChart selectedWeek={selectedWeek} />
-                </TabPanel>
-                <TabPanel value={tabValue} index={1}>
-                    <TrainingSessionsNavigation selectedWeek={selectedWeek} navigateToTrackWorkout={navigateToTrackWorkout} />
-                </TabPanel>
-                <TabPanel value={tabValue} index={2}>
-                    <PersonalBestChart />
-                </TabPanel>
-                <TabPanel value={tabValue} index={3}>
-                    <RecentWorkoutsChart />
+                    <TrainingSessionsNavigation selectedWeek={selectedWeek} navigateToTrackWorkout={(session) => navigate(`/trackworkout/${session}`)} />
                 </TabPanel>
             </Box>
         </Container>

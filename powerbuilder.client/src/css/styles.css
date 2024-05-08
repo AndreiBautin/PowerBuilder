@@ -1,3 +1,4 @@
+/* powerbuilder.client/src/css/styles.css */
 /* Glassmorphism styling */
 body {
     background-image: url('/src/assets/background.png');
@@ -19,6 +20,8 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.18);
     transition: transform 0.3s ease;
     transform-style: preserve-3d;
+    padding: 1rem;
+    margin-bottom: 2rem;
 }
 
     .glass-box:hover {
@@ -104,13 +107,39 @@ body {
         background-color: rgba(255, 255, 255, 0.3);
     }
 
+.modern-buttons-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 1rem 0;
+}
+
+.modern-button {
+    background-color: #ff6347;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .modern-button:hover {
+        background-color: #ff4500;
+    }
+
 @media screen and (max-width: 768px) {
     .chart-box,
-    .training-block-section {
+    .training-block-section,
+    .glass-box {
         width: 100%;
+        margin: 0;
     }
 
     .arrow-button {
         padding: 0.2rem 0.4rem;
+    }
+
+    .glass-box {
+        height: 100%;
     }
 }

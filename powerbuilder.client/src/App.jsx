@@ -1,6 +1,6 @@
 // powerbuilder.client/src/App.jsx
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import TrackWorkout from "./pages/TrackWorkout";
 import ExerciseDetails from "./pages/ExerciseDetails";
@@ -14,14 +14,13 @@ const App = () => {
     return (
         <Router>
             <Routes>
+                <Route path="/" element={<Login />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/trackworkout/:session" element={<TrackWorkout />} />
                 <Route path="/exercisedetails/:exercise" element={<ExerciseDetails />} />
                 <Route path="/macrocycleform" element={<MacrocycleForm />} />
                 <Route path="/macrocycledetails" element={<MacrocycleDetails />} />
                 <Route path="/settings" element={<Settings />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/" element={<Dashboard />} />
             </Routes>
         </Router>
     );

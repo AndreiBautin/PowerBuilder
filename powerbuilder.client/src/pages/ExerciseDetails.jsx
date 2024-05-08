@@ -3,6 +3,9 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Typography, Box, Card, CardContent, Button } from "@mui/material";
 import { motion } from "framer-motion";
+import BlockLineChart from "../components/BlockLineChart";
+import PersonalBestChart from "../components/PersonalBestChart";
+import RecentWorkoutsChart from "../components/RecentWorkoutsChart";
 import "../css/styles.css";
 
 const exercisesDetails = {
@@ -32,6 +35,11 @@ const ExerciseDetails = () => {
                     </Box>
                 </CardContent>
             </Card>
+            <Box mt={3}>
+                <BlockLineChart />
+                <PersonalBestChart />
+                <RecentWorkoutsChart />
+            </Box>
             <Box mt={3}>
                 <Button fullWidth variant="contained" onClick={() => navigate("/dashboard")}>
                     Back to Dashboard

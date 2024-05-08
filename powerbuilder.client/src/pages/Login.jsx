@@ -9,7 +9,6 @@ const Login = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Mock login logic
         navigate("/dashboard");
     };
 

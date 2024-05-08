@@ -1,8 +1,9 @@
 // powerbuilder.client/src/pages/TrackWorkout.jsx
 import React, { useState } from "react";
-import { Container, Typography, Box, Button, Card, CardContent, TextField } from "@mui/material";
+import { Container, Typography, Box, Card, CardContent, TextField, Button } from "@mui/material";
 import { motion } from "framer-motion";
 import { useParams, useNavigate } from "react-router-dom";
+import ModernButtons from "../components/ModernButtons";
 import "../css/styles.css";
 
 const workouts = {
@@ -32,19 +33,6 @@ const workouts = {
                 { setNumber: 2, weight: "80 kg", reps: 8, rpe: 8 },
                 { setNumber: 3, weight: "80 kg", reps: 8, rpe: 8 }
             ]
-        },
-        {
-            name: "Deadlift",
-            sets: 3,
-            reps: 8,
-            weight: "120 kg",
-            rpe: 7,
-            previous: "110 kg",
-            setDetails: [
-                { setNumber: 1, weight: "120 kg", reps: 8, rpe: 7 },
-                { setNumber: 2, weight: "120 kg", reps: 8, rpe: 7 },
-                { setNumber: 3, weight: "120 kg", reps: 8, rpe: 7 }
-            ]
         }
     ],
     "Session 2": [
@@ -60,32 +48,6 @@ const workouts = {
                 { setNumber: 2, weight: "40 kg", reps: 10, rpe: 7 },
                 { setNumber: 3, weight: "40 kg", reps: 10, rpe: 7 }
             ]
-        },
-        {
-            name: "Pull-ups",
-            sets: 3,
-            reps: 8,
-            weight: "Bodyweight",
-            rpe: 6,
-            previous: "Bodyweight",
-            setDetails: [
-                { setNumber: 1, weight: "Bodyweight", reps: 8, rpe: 6 },
-                { setNumber: 2, weight: "Bodyweight", reps: 8, rpe: 6 },
-                { setNumber: 3, weight: "Bodyweight", reps: 8, rpe: 6 }
-            ]
-        },
-        {
-            name: "Lunges",
-            sets: 3,
-            reps: 12,
-            weight: "20 kg",
-            rpe: 7,
-            previous: "15 kg",
-            setDetails: [
-                { setNumber: 1, weight: "20 kg", reps: 12, rpe: 7 },
-                { setNumber: 2, weight: "20 kg", reps: 12, rpe: 7 },
-                { setNumber: 3, weight: "20 kg", reps: 12, rpe: 7 }
-            ]
         }
     ]
 };
@@ -97,21 +59,12 @@ const TrackWorkout = () => {
     const [currentExercise, setCurrentExercise] = useState(0);
     const [currentSet, setCurrentSet] = useState(0);
 
-    const handlePreviousExercise = () => {
-        setCurrentExercise((prev) => (prev > 0 ? prev - 1 : 0));
-    };
-
-    const handleNextExercise = () => {
-        setCurrentExercise((prev) => (prev < exercises.length - 1 ? prev + 1 : exercises.length - 1));
-    };
-
-    const handlePreviousSet = () => {
-        setCurrentSet((prev) => (prev > 0 ? prev - 1 : 0));
-    };
-
-    const handleNextSet = () => {
-        setCurrentSet((prev) => (prev < exercises[currentExercise].setDetails.length - 1 ? prev + 1 : exercises[currentExercise].setDetails.length - 1));
-    };
+    const handlePreviousExercise = () => setCurrentExercise((prev) => (prev > 0 ? prev - 1 : 0));
+    const handleNextExercise = () => setCurrentExercise((prev) => (prev < exercises.length - 1 ? prev + 1 : exercises.length - 1));
+    const handlePreviousSet = () => setCurrentSet((prev) => (prev > 0 ? prev - 1 : 0));
+    const handleNextSet = () => setCurrentSet((prev) => (prev < exercises[currentExercise].setDetails.length - 1 ? prev + 1 : exercises[currentExercise].setDetails.length - 1));
+    const handleResetExercise = () => setCurrentExercise(0);
+    const handleResetSet = () => setCurrentSet(0);
 
     const exercise = exercises[currentExercise] || {};
     const set = exercise.setDetails ? exercise.setDetails[currentSet] : {};
@@ -140,30 +93,13 @@ const TrackWorkout = () => {
                         <Button className="arrow-button" onClick={handleNextSet}>{">"}</Button>
                     </Box>
                     <Box mt={2}>
-                        <TextField
-                            label="Weight"
-                            defaultValue={set.weight}
-                            fullWidth
-                            variant="outlined"
-                            margin="dense"
-                        />
-                        <TextField
-                            label="Reps"
-                            defaultValue={set.reps}
-                            fullWidth
-                            variant="outlined"
-                            margin="dense"
-                        />
-                        <TextField
-                            label="RPE"
-                            defaultValue={set.rpe}
-                            fullWidth
-                            variant="outlined"
-                            margin="dense"
-                        />
+                        <TextField label="Weight" defaultValue={set.weight} fullWidth variant="outlined" margin="dense" />
+                        <TextField label="Reps" defaultValue={set.reps} fullWidth variant="outlined" margin="dense" />
+                        <TextField label="RPE" defaultValue={set.rpe} fullWidth variant="outlined" margin="dense" />
                     </Box>
                 </CardContent>
             </Card>
+            <ModernButtons onPrevious={handlePreviousExercise} onNext={handleNextExercise} onReset={handleResetExercise} />
             <Box mt={3}>
                 <Button fullWidth variant="contained" onClick={() => navigate(`/exercisedetails/${exercise.name}`)}>
                     View Exercise Details
