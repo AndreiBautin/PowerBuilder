@@ -1,12 +1,17 @@
-// powerbuilder.client/src/pages/Settings.jsx
+// powerbuilder.client/src/pages/MacrocycleDetails.jsx
 import React from "react";
 import { Container, Box, Typography, Button } from "@mui/material";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import "../css/styles.css";
 
-const Settings = () => {
+const MacrocycleDetails = () => {
     const navigate = useNavigate();
+
+    const handleClearMacroCycle = () => {
+        // Mock clear logic
+        navigate("/dashboard");
+    };
 
     return (
         <Container maxWidth="md" component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -26,11 +31,14 @@ const Settings = () => {
                 className="glass-box"
             >
                 <Typography variant="h4" align="center" gutterBottom>
-                    Settings
+                    MacroCycle Details
                 </Typography>
                 <Typography variant="body2">
-                    Generic app settings will be displayed here.
+                    Details about your current macrocycle will be displayed here.
                 </Typography>
+                <Button variant="contained" fullWidth sx={{ mt: 2 }} onClick={handleClearMacroCycle}>
+                    Clear MacroCycle
+                </Button>
                 <Button fullWidth variant="contained" sx={{ mt: 2 }} onClick={() => navigate("/dashboard")}>
                     Back to Dashboard
                 </Button>
@@ -39,4 +47,4 @@ const Settings = () => {
     );
 };
 
-export default Settings;
+export default MacrocycleDetails;

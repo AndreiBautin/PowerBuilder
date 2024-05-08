@@ -1,61 +1,44 @@
 // powerbuilder.client/src/pages/Login.jsx
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button, TextField, Container, Box, Typography } from '@mui/material';
-import { motion } from 'framer-motion';
+import React from "react";
+import { Container, Box, TextField, Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import "../css/styles.css";
 
 const Login = () => {
     const navigate = useNavigate();
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
 
-    const handleLogin = () => {
-        navigate('/dashboard');
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        // Mock login logic
+        navigate("/dashboard");
     };
 
     return (
-        <Container maxWidth="xs" component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <Container maxWidth="xs">
             <Box
-                display="flex"
-                flexDirection="column"
-                alignItems="center"
-                mt={8}
-                p={4}
-                boxShadow={3}
-                borderRadius={2}
-                className="login-box"
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    mt: 8,
+                    p: 4,
+                    borderRadius: "8px",
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.37)",
+                    backdropFilter: "blur(10px)",
+                    border: "1px solid rgba(255, 255, 255, 0.18)"
+                }}
             >
-                <Typography variant="h4" mb={2}>
+                <Typography variant="h4" align="center" gutterBottom>
                     PowerBuilder Login
                 </Typography>
-                <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    label="Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-                <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    label="Password"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <Button
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    onClick={handleLogin}
-                    style={{ marginTop: '1rem' }}
-                >
-                    Login
-                </Button>
+                <form onSubmit={handleSubmit}>
+                    <TextField name="username" label="Username" fullWidth margin="normal" />
+                    <TextField name="password" label="Password" type="password" fullWidth margin="normal" />
+                    <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
+                        Login
+                    </Button>
+                </form>
             </Box>
         </Container>
     );
