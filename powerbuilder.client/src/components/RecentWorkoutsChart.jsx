@@ -1,34 +1,34 @@
-// powerbuilder.client/src/components/RecentWorkoutsChart.jsx
+// powerbuilder.client/src/components/PersonalBestChart.jsx
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+import { ResponsiveContainer, Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from "recharts";
 import "../css/styles.css";
 
 const data = [
-    { name: "Workout 1", volume: 120, intensity: 70 },
-    { name: "Workout 2", volume: 130, intensity: 75 },
-    { name: "Workout 3", volume: 140, intensity: 80 },
-    { name: "Workout 4", volume: 110, intensity: 60 }
+    { subject: "Squat", A: 90, fullMark: 100 },
+    { subject: "Bench Press", A: 80, fullMark: 100 },
+    { subject: "Deadlift", A: 100, fullMark: 100 },
+    { subject: "Overhead Press", A: 70, fullMark: 100 },
+    { subject: "Pull-ups", A: 65, fullMark: 100 },
+    { subject: "Lunges", A: 80, fullMark: 100 }
 ];
 
-const RecentWorkoutsChart = () => {
+const PersonalBestChart = ({ height = 150 }) => {
     return (
         <Box>
             <Typography variant="h6" align="center" gutterBottom>
-                Recent Workouts
+                Personal Bests
             </Typography>
-            <ResponsiveContainer width="100%" height={250}>
-                <LineChart data={data} margin={{ top: 10, right: 30, left: 10, bottom: 10 }}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" tick={{ fontSize: 8 }} />
-                    <YAxis tick={{ fontSize: 8 }} />
-                    <Tooltip />
-                    <Line type="monotone" dataKey="volume" stroke="#82ca9d" />
-                    <Line type="monotone" dataKey="intensity" stroke="#8884d8" />
-                </LineChart>
+            <ResponsiveContainer width="100%" height={height}>
+                <RadarChart outerRadius={70} data={data}>
+                    <PolarGrid />
+                    <PolarAngleAxis dataKey="subject" />
+                    <PolarRadiusAxis angle={30} domain={[0, 100]} />
+                    <Radar name="A" dataKey="A" stroke="#FF6347" fill="#FF6347" fillOpacity={0.6} />
+                </RadarChart>
             </ResponsiveContainer>
         </Box>
     );
 };
 
-export default RecentWorkoutsChart;
+export default PersonalBestChart;

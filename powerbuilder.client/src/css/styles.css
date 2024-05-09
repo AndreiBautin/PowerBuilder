@@ -1,5 +1,4 @@
-/* powerbuilder.client/src/css/styles.css */
-/* Glassmorphism styling */
+/* Updated styles.css */
 body {
     background-image: url('/src/assets/background.png');
     background-size: cover;
@@ -9,66 +8,57 @@ body {
     color: #ffffff;
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    overflow: hidden; /* Prevent vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
-.glass-box {
+/* Cool fonts for headers and recovery scores */
+.cool-font {
+    font-family: 'Roboto', sans-serif; /* or any other preferred font */
+    color: #76daff; /* Light blue to match with the background theme */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle shadow for better readability */
+}
+
+.bold-font {
+    font-family: 'Oswald', sans-serif;
+    font-weight: bold;
+    color: #76daff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.glass-card {
     backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    background-color: rgba(255, 255, 255, 0.1); /* Light transparent background */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 20px;
+    margin-bottom: 20px;
     transition: transform 0.3s ease;
-    transform-style: preserve-3d;
-    padding: 1rem;
-    margin-bottom: 2rem;
 }
 
-    .glass-box:hover {
-        transform: rotateY(5deg) rotateX(-5deg);
+    .glass-card:hover {
+        transform: scale(1.02); /* Slight zoom on hover for interactive feel */
     }
 
-.dashboard-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    gap: 1rem;
-}
-
-.chart-box {
-    padding: 0.5rem;
-    border-radius: 8px;
-    width: 90%;
-    flex-grow: 1;
-}
-
-.training-block-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 90%;
-}
-
-.training-block {
-    padding: 0.8rem;
+/* Styling for buttons with a modern flat design */
+.button {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
     cursor: pointer;
-    border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s;
+    border-radius: 5px;
 }
 
-.training-block-selected {
-    border: 2px solid #82ca9d;
-}
-
-.navigation-arrows {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+    .button:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
 
 .arrow-button {
     background-color: rgba(255, 255, 255, 0.2);
@@ -84,62 +74,8 @@ body {
         background-color: rgba(255, 255, 255, 0.3);
     }
 
-.sessions-list {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    gap: 0.5rem;
-    flex-grow: 1;
-}
-
-.sessions-list-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.4rem;
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    transition: all 0.2s;
-    cursor: pointer;
-}
-
-    .sessions-list-item:hover {
-        background-color: rgba(255, 255, 255, 0.3);
-    }
-
-.modern-buttons-container {
-    display: flex;
-    justify-content: space-around;
-    margin: 1rem 0;
-}
-
-.modern-button {
-    background-color: #ff6347;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-    .modern-button:hover {
-        background-color: #ff4500;
-    }
-
 @media screen and (max-width: 768px) {
-    .chart-box,
-    .training-block-section,
-    .glass-box {
-        width: 100%;
-        margin: 0;
-    }
-
-    .arrow-button {
-        padding: 0.2rem 0.4rem;
-    }
-
-    .glass-box {
-        height: 100%;
+    .glass-card {
+        margin: 0 10px;
     }
 }

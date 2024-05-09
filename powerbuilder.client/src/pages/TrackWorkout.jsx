@@ -1,113 +1,65 @@
-// powerbuilder.client/src/pages/TrackWorkout.jsx
+﻿// powerbuilder.client/src/pages/TrackWorkout.jsx
 import React, { useState } from "react";
-import { Container, Typography, Box, Card, CardContent, TextField, Button } from "@mui/material";
-import { motion } from "framer-motion";
-import { useParams, useNavigate } from "react-router-dom";
-import ModernButtons from "../components/ModernButtons";
+import { Box, Button, Typography, Container } from "@mui/material";
+import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import "../css/styles.css";
 
-const workouts = {
-    "Session 1": [
-        {
-            name: "Squat",
-            sets: 3,
-            reps: 8,
-            weight: "100 kg",
-            rpe: 7,
-            previous: "90 kg",
-            setDetails: [
-                { setNumber: 1, weight: "100 kg", reps: 8, rpe: 7 },
-                { setNumber: 2, weight: "100 kg", reps: 8, rpe: 7 },
-                { setNumber: 3, weight: "100 kg", reps: 8, rpe: 7 }
-            ]
-        },
-        {
-            name: "Bench Press",
-            sets: 3,
-            reps: 8,
-            weight: "80 kg",
-            rpe: 8,
-            previous: "75 kg",
-            setDetails: [
-                { setNumber: 1, weight: "80 kg", reps: 8, rpe: 8 },
-                { setNumber: 2, weight: "80 kg", reps: 8, rpe: 8 },
-                { setNumber: 3, weight: "80 kg", reps: 8, rpe: 8 }
-            ]
-        }
-    ],
-    "Session 2": [
-        {
-            name: "Overhead Press",
-            sets: 3,
-            reps: 10,
-            weight: "40 kg",
-            rpe: 7,
-            previous: "35 kg",
-            setDetails: [
-                { setNumber: 1, weight: "40 kg", reps: 10, rpe: 7 },
-                { setNumber: 2, weight: "40 kg", reps: 10, rpe: 7 },
-                { setNumber: 3, weight: "40 kg", reps: 10, rpe: 7 }
-            ]
-        }
-    ]
-};
+const exercises = [
+    { name: "Bench Press", sets: 4, reps: 8, rpe: 7, projectedWeight: 100 },
+    { name: "Overhead Press", sets: 3, reps: 10, rpe: 8, projectedWeight: 60 },
+    { name: "Skull Crushers", sets: 3, reps: 12, rpe: 8, projectedWeight: 40 }
+];
 
 const TrackWorkout = () => {
-    const { session } = useParams();
-    const navigate = useNavigate();
-    const exercises = workouts[session] || [];
-    const [currentExercise, setCurrentExercise] = useState(0);
-    const [currentSet, setCurrentSet] = useState(0);
+    const [selectedExercise, setSelectedExercise] = useState(0);
+    const [selectedSet, setSelectedSet] = useState(0);
 
-    const handlePreviousExercise = () => setCurrentExercise((prev) => (prev > 0 ? prev - 1 : 0));
-    const handleNextExercise = () => setCurrentExercise((prev) => (prev < exercises.length - 1 ? prev + 1 : exercises.length - 1));
-    const handlePreviousSet = () => setCurrentSet((prev) => (prev > 0 ? prev - 1 : 0));
-    const handleNextSet = () => setCurrentSet((prev) => (prev < exercises[currentExercise].setDetails.length - 1 ? prev + 1 : exercises[currentExercise].setDetails.length - 1));
-    const handleResetExercise = () => setCurrentExercise(0);
-    const handleResetSet = () => setCurrentSet(0);
+    const previousExercise = () => setSelectedExercise((prev) => (prev > 0 ? prev - 1 : prev));
+    const nextExercise = () => setSelectedExercise((prev) => (prev < exercises.length - 1 ? prev + 1 : prev));
 
-    const exercise = exercises[currentExercise] || {};
-    const set = exercise.setDetails ? exercise.setDetails[currentSet] : {};
+    const previousSet = () => setSelectedSet((prev) => (prev > 0 ? prev - 1 : prev));
+    const nextSet = () => setSelectedSet((prev) => (prev < exercises[selectedExercise].sets - 1 ? prev + 1 : prev));
+
+    const currentExercise = exercises[selectedExercise];
 
     return (
-        <Container maxWidth="md" component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <Typography variant="h4" align="center" gutterBottom>
-                {session}
+        <Container maxWidth="md" className="glass-card" sx={{ mt: 4, p: 2 }}>
+            <Typography variant="h6" className="bold-font" gutterBottom>
+                {currentExercise.name}
             </Typography>
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <Button className="arrow-button" onClick={handlePreviousExercise}>{"<"}</Button>
-                <Typography variant="h6">{exercise.name || "No Exercise Selected"}</Typography>
-                <Button className="arrow-button" onClick={handleNextExercise}>{">"}</Button>
-            </Box>
-            <Card className="glass-box" sx={{ mt: 2 }}>
-                <CardContent>
-                    <Typography variant="body2">
-                        Sets: {exercise.sets} | Reps: {exercise.reps} | Weight: {exercise.weight}
-                        | Previous: {exercise.previous} | RPE: {exercise.rpe}
-                    </Typography>
-                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 2 }}>
-                        <Button className="arrow-button" onClick={handlePreviousSet}>{"<"}</Button>
-                        <Typography variant="subtitle2">
-                            Set {set.setNumber}: Weight - {set.weight}, Reps - {set.reps}, RPE - {set.rpe}
-                        </Typography>
-                        <Button className="arrow-button" onClick={handleNextSet}>{">"}</Button>
-                    </Box>
-                    <Box mt={2}>
-                        <TextField label="Weight" defaultValue={set.weight} fullWidth variant="outlined" margin="dense" />
-                        <TextField label="Reps" defaultValue={set.reps} fullWidth variant="outlined" margin="dense" />
-                        <TextField label="RPE" defaultValue={set.rpe} fullWidth variant="outlined" margin="dense" />
-                    </Box>
-                </CardContent>
-            </Card>
-            <ModernButtons onPrevious={handlePreviousExercise} onNext={handleNextExercise} onReset={handleResetExercise} />
-            <Box mt={3}>
-                <Button fullWidth variant="contained" onClick={() => navigate(`/exercisedetails/${exercise.name}`)}>
-                    View Exercise Details
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", mb: 2 }}>
+                <Button className="arrow-button" onClick={previousExercise}>
+                    <ArrowBack />
+                </Button>
+                <Typography variant="subtitle1" sx={{ mx: 2 }}>
+                    Set {selectedSet + 1} / {currentExercise.sets}
+                </Typography>
+                <Button className="arrow-button" onClick={nextExercise}>
+                    <ArrowForward />
                 </Button>
             </Box>
-            <Box mt={3}>
-                <Button fullWidth variant="contained" onClick={() => navigate("/dashboard")}>
-                    Back to Dashboard
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    mb: 2
+                }}
+            >
+                <Typography variant="body1">Projected Weight: {currentExercise.projectedWeight} kg</Typography>
+                <Typography variant="body1">Reps: {currentExercise.reps}</Typography>
+                <Typography variant="body1">RPE: {currentExercise.rpe}</Typography>
+            </Box>
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <Button className="arrow-button" onClick={previousSet}>
+                    <ArrowBack />
+                </Button>
+                <Typography variant="subtitle1" sx={{ mx: 2 }}>
+                    Set {selectedSet + 1}
+                </Typography>
+                <Button className="arrow-button" onClick={nextSet}>
+                    <ArrowForward />
                 </Button>
             </Box>
         </Container>

@@ -1,49 +1,57 @@
-// powerbuilder.client/src/pages/ExerciseDetails.jsx
+﻿// powerbuilder.client/src/pages/ExerciseDetails.jsx
 import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { Container, Typography, Box, Card, CardContent, Button } from "@mui/material";
+import { Container, Box, Typography } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import BlockLineChart from "../components/BlockLineChart";
-import PersonalBestChart from "../components/PersonalBestChart";
-import RecentWorkoutsChart from "../components/RecentWorkoutsChart";
 import "../css/styles.css";
 
-const exercisesDetails = {
-    Squat: { description: "Squat exercise details.", sets: [1, 2, 3] },
-    "Bench Press": { description: "Bench Press exercise details.", sets: [1, 2, 3] },
-    Deadlift: { description: "Deadlift exercise details.", sets: [1, 2, 3] }
-};
+const sampleHistory = [
+    { date: "2024-05-01", weight: 100, reps: 10, rpe: 8 },
+    { date: "2024-05-02", weight: 105, reps: 8, rpe: 9 },
+    { date: "2024-05-03", weight: 110, reps: 6, rpe: 9 }
+];
 
 const ExerciseDetails = () => {
-    const { exercise } = useParams();
+    const { exerciseName } = useParams();
     const navigate = useNavigate();
-    const exerciseDetail = exercisesDetails[exercise] || {};
 
     return (
-        <Container maxWidth="md" component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <Typography variant="h4" align="center" gutterBottom>
-                {exercise} Details
-            </Typography>
-            <Card className="glass-box" sx={{ mt: 2 }}>
-                <CardContent>
-                    <Typography variant="h6">{exerciseDetail.description || "No Details Found"}</Typography>
-                    <Box sx={{ mt: 2 }}>
-                        <Typography variant="subtitle1">Sets:</Typography>
-                        {exerciseDetail.sets && exerciseDetail.sets.map((set, index) => (
-                            <Typography key={index}>Set {set}</Typography>
-                        ))}
-                    </Box>
-                </CardContent>
-            </Card>
-            <Box mt={3}>
-                <BlockLineChart />
-                <PersonalBestChart />
-                <RecentWorkoutsChart />
+        <Container maxWidth="sm" component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <Box className="glass-card" sx={{ textAlign: "center", p: 2, m: "auto" }}>
+                <Typography variant="h5" gutterBottom>
+                    Exercise Details: {exerciseName}
+                </Typography>
+                <Box>
+                    <Typography variant="subtitle1" gutterBottom>
+                        History
+                    </Typography>
+                    {sampleHistory.map((item, index) => (
+                        <Box key={index} sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
+                            <Typography variant="body2">{item.date}</Typography>
+                            <Typography variant="body2">
+                                Weight: {item.weight}, Reps: {item.reps}, RPE: {item.rpe}
+                            </Typography>
+                        </Box>
+                    ))}
+                </Box>
             </Box>
-            <Box mt={3}>
-                <Button fullWidth variant="contained" onClick={() => navigate("/dashboard")}>
-                    Back to Dashboard
-                </Button>
+            <Box className="bottom-tabs">
+                <Box className="tab-item" onClick={() => navigate("/dashboard")}>
+                    <Typography className="tab-icon">📈</Typography>
+                    <Typography variant="caption">Dashboard</Typography>
+                </Box>
+                <Box className="tab-item" onClick={() => navigate("/stats")}>
+                    <Typography className="tab-icon">📊</Typography>
+                    <Typography variant="caption">Stats</Typography>
+                </Box>
+                <Box className="tab-item" onClick={() => navigate("/macrocycleoverview")}>
+                    <Typography className="tab-icon">🔍</Typography>
+                    <Typography variant="caption">Macro Overview</Typography>
+                </Box>
+                <Box className="tab-item" onClick={() => navigate("/settings")}>
+                    <Typography className="tab-icon">⚙️</Typography>
+                    <Typography variant="caption">Settings</Typography>
+                </Box>
             </Box>
         </Container>
     );
