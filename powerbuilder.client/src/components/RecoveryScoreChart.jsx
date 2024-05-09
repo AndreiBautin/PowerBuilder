@@ -1,47 +1,64 @@
 // powerbuilder.client/src/components/RecoveryScoreChart.jsx
-import React from "react";
-import { Box, Typography } from "@mui/material";
+import React from 'react';
 import {
     ResponsiveContainer,
-    LineChart,
+    ComposedChart,
     Line,
     XAxis,
     YAxis,
     CartesianGrid,
     Tooltip,
-    Legend
-} from "recharts";
-import "../css/styles.css";
+    Legend,
+} from 'recharts';
+import { Box, Typography } from '@mui/material';
 
-const recoveryData = [
-    { day: "Mon", sleep: 85, soreness: 75, mood: 80, energy: 70 },
-    { day: "Tue", sleep: 90, soreness: 80, mood: 85, energy: 75 },
-    { day: "Wed", sleep: 80, soreness: 70, mood: 75, energy: 65 },
-    { day: "Thu", sleep: 95, soreness: 85, mood: 90, energy: 80 },
-    { day: "Fri", sleep: 78, soreness: 73, mood: 80, energy: 68 },
-    { day: "Sat", sleep: 88, soreness: 80, mood: 85, energy: 70 },
-    { day: "Sun", sleep: 92, soreness: 87, mood: 89, energy: 78 }
+const data = [
+    { day: 'Mon', weight: 180, steps: 8000, calories: 2200, protein: 150, sleep: 7.5 },
+    { day: 'Tue', weight: 182, steps: 7500, calories: 2000, protein: 160, sleep: 8 },
+    { day: 'Wed', weight: 181, steps: 8500, calories: 2100, protein: 155, sleep: 7 },
+    { day: 'Thu', weight: 183, steps: 8200, calories: 2300, protein: 165, sleep: 7.8 },
+    { day: 'Fri', weight: 184, steps: 7800, calories: 2400, protein: 170, sleep: 6.5 },
+    { day: 'Sat', weight: 183, steps: 7600, calories: 2300, protein: 160, sleep: 7.2 },
+    { day: 'Sun', weight: 182, steps: 8100, calories: 2200, protein: 150, sleep: 8.1 },
 ];
 
 const RecoveryScoreChart = () => {
     return (
-        <Box sx={{ textAlign: "center", p: 2 }}>
-            <Typography variant="h5" className="cool-font" gutterBottom>
-                Recovery Score
+        <Box className="recovery-score-container glass-card">
+            <Typography variant="h5" align="center" sx={{ mb: 2, fontWeight: 'bold' }}>
+                Recovery Metrics
             </Typography>
-            <ResponsiveContainer width="100%" height={150}>
-                <LineChart data={recoveryData} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
+            <ResponsiveContainer width="100%" height={200}>
+                <ComposedChart data={data}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="day" />
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Line type="monotone" dataKey="sleep" stroke="#76daff" />
-                    <Line type="monotone" dataKey="soreness" stroke="#ff6f61" />
-                    <Line type="monotone" dataKey="mood" stroke="#76c7c0" />
-                    <Line type="monotone" dataKey="energy" stroke="#ffcc29" />
-                </LineChart>
+                    <Line type="monotone" dataKey="weight" stroke="#FF0000" />
+                    <Line type="monotone" dataKey="steps" stroke="#00FF00" />
+                    <Line type="monotone" dataKey="calories" stroke="#0000FF" />
+                    <Line type="monotone" dataKey="protein" stroke="#FFFF00" />
+                    <Line type="monotone" dataKey="sleep" stroke="#FF00FF" />
+                </ComposedChart>
             </ResponsiveContainer>
+            <Box sx={{ mt: 2 }}>
+                <Typography variant="subtitle2" align="center">
+                    Avg Weight: {data.reduce((acc, item) => acc + item.weight, 0) / data.length} lbs
+                </Typography>
+                <Typography variant="subtitle2" align="center">
+                    Avg Steps: {data.reduce((acc, item) => acc + item.steps, 0) / data.length}
+                </Typography>
+                <Typography variant="subtitle2" align="center">
+                    Avg Calories: {data.reduce((acc, item) => acc + item.calories, 0) / data.length}
+                </Typography>
+                <Typography variant="subtitle2" align="center">
+                    Avg Protein: {data.reduce((acc, item) => acc + item.protein, 0) / data.length} g
+                </Typography>
+                <Typography variant="subtitle2" align="center">
+                    Avg Sleep: {data.reduce((acc, item) => acc + item.sleep, 0) / data.length} hours
+                </Typography>
+            </Box>
         </Box>
     );
 };

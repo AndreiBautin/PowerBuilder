@@ -1,39 +1,65 @@
 ﻿// powerbuilder.client/src/pages/Dashboard.jsx
-import React, { useState } from "react";
-import { Box, Typography, Container } from "@mui/material";
-import RecoveryScoreChart from "../components/RecoveryScoreChart";
-import MacroCycleOverviewChart from "../components/MacroCycleOverviewChart";
-import TrainingSessionsNavigation from "../components/TrainingSessionsNavigation";
-import "../css/styles.css";
+import React, { useState } from 'react';
+import RecoveryMetrics from '../components/RecoveryMetrics';
+import MacroCycleOverviewChart from '../components/MacroCycleOverviewChart';
+import PersonalBestCharts from '../components/PersonalBestCharts';
+import { Container, Box, Typography } from '@mui/material';
+import TrainingSessionsNavigation from '../components/TrainingSessionsNavigation';
 
 const Dashboard = () => {
     const [selectedWeek, setSelectedWeek] = useState(0);
-    const [selectedSession, setSelectedSession] = useState(0);
 
-    const previousWeek = () => setSelectedWeek((prev) => (prev > 0 ? prev - 1 : prev));
-    const nextWeek = () => setSelectedWeek((prev) => (prev < 11 ? prev + 1 : prev));
+    const handleNavigateToTrackWorkout = (session) => {
+        console.log(`Navigating to Track Workout for ${session}`);
+        // Replace with your navigation logic
+        window.location.href = '/track-workout';
+    };
 
-    const previousSession = () => setSelectedSession((prev) => (prev > 0 ? prev - 1 : prev));
-    const nextSession = () => setSelectedSession((prev) => (prev < 5 ? prev + 1 : prev));
-
-    const navigateToTrackWorkout = (sessionName) => {
-        console.log(`Navigating to Track Workout for: ${sessionName}`);
-        // Here you can navigate to the Track Workout page or execute any logic needed
+    const handleWeekChange = (direction) => {
+        if (direction === 'prev') {
+            setSelectedWeek((prev) => (prev > 0 ? prev - 1 : 0));
+        } else {
+            setSelectedWeek((prev) => (prev < 11 ? prev + 1 : 11));
+        }
     };
 
     return (
-        <Container maxWidth="md" className="glass-card" sx={{ mt: 4, p: 2 }}>
-            <Typography variant="h4" className="bold-font" gutterBottom>
-                {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
+        <Container maxWidth="md" className="dashboard-container">
+            {/* Header Date */}
+            <Typography variant="h4" align="center" sx={{ mb: 3, fontWeight: 'bold' }}>
+                {new Date().toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                })}
             </Typography>
-            <RecoveryScoreChart />
-            <MacroCycleOverviewChart selectedWeek={selectedWeek} previousWeek={previousWeek} nextWeek={nextWeek} />
-            <TrainingSessionsNavigation
-                selectedSession={selectedSession}
-                previousSession={previousSession}
-                nextSession={nextSession}
-                navigateToTrackWorkout={navigateToTrackWorkout}
-            />
+
+            {/* Recovery Metrics */}
+            <RecoveryMetrics />
+
+            {/* MacroCycle Overview */}
+            <Box className="macrocycle-overview-container">
+                <Typography variant="h5" align="center">
+                    Week {selectedWeek + 1}
+                </Typography>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+                    <button className="arrow-button" onClick={() => handleWeekChange('prev')}>
+                        {'<'}
+                    </button>
+                    <MacroCycleOverviewChart selectedWeek={selectedWeek} />
+                    <button className="arrow-button" onClick={() => handleWeekChange('next')}>
+                        {'>'}
+                    </button>
+                </Box>
+                <TrainingSessionsNavigation
+                    selectedWeek={selectedWeek}
+                    navigateToTrackWorkout={handleNavigateToTrackWorkout}
+                />
+            </Box>
+
+            {/* Personal Bests */}
+            <PersonalBestCharts />
         </Container>
     );
 };
