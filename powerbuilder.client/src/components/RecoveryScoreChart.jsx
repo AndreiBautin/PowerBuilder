@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     ResponsiveContainer,
     ComposedChart,
@@ -9,7 +9,7 @@ import {
     Tooltip,
     Legend,
 } from 'recharts';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 
 const data = [
     { day: 'Mon', weight: 180, steps: 8000, calories: 2200, protein: 150, sleep: 7.5 },
@@ -21,12 +21,42 @@ const data = [
     { day: 'Sun', weight: 182, steps: 8100, calories: 2200, protein: 150, sleep: 8.1 },
 ];
 
+const metrics = ['weight', 'steps', 'calories', 'protein', 'sleep'];
+const metricNames = {
+    weight: 'Weight (lbs)',
+    steps: 'Steps',
+    calories: 'Calories',
+    protein: 'Protein (g)',
+    sleep: 'Sleep (hours)',
+};
+
 const RecoveryScoreChart = () => {
+    const [selectedMetricIndex, setSelectedMetricIndex] = useState(0);
+    const selectedMetric = metrics[selectedMetricIndex];
+
+    const handleMetricChange = (direction) => {
+        if (direction === 'prev') {
+            setSelectedMetricIndex((prev) => (prev > 0 ? prev - 1 : metrics.length - 1));
+        } else {
+            setSelectedMetricIndex((prev) => (prev < metrics.length - 1 ? prev + 1 : 0));
+        }
+    };
+
+    const average = data.reduce((acc, item) => acc + item[selectedMetric], 0) / data.length;
+
     return (
-        <Box className="recovery-score-container glass-card">
-            <Typography variant="h5" align="center" sx={{ mb: 2, fontWeight: 'bold' }}>
-                Recovery Metrics
-            </Typography>
+        <Box className="recovery-score-container">
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Button className="arrow-button" onClick={() => handleMetricChange('prev')}>
+                    {'<'}
+                </Button>
+                <Typography variant="h5" align="center" sx={{ mb: 2, fontWeight: 'bold' }}>
+                    {metricNames[selectedMetric]}
+                </Typography>
+                <Button className="arrow-button" onClick={() => handleMetricChange('next')}>
+                    {'>'}
+                </Button>
+            </Box>
             <ResponsiveContainer width="100%" height={200}>
                 <ComposedChart data={data}>
                     <CartesianGrid strokeDasharray="3 3" />
@@ -34,30 +64,12 @@ const RecoveryScoreChart = () => {
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Line type="monotone" dataKey="weight" stroke="#FF0000" />
-                    <Line type="monotone" dataKey="steps" stroke="#00FF00" />
-                    <Line type="monotone" dataKey="calories" stroke="#0000FF" />
-                    <Line type="monotone" dataKey="protein" stroke="#FFFF00" />
-                    <Line type="monotone" dataKey="sleep" stroke="#FF00FF" />
+                    <Line type="monotone" dataKey={selectedMetric} stroke="#FF0000" />
                 </ComposedChart>
             </ResponsiveContainer>
-            <Box sx={{ mt: 2 }}>
-                <Typography variant="subtitle2" align="center">
-                    Avg Weight: {Math.round(data.reduce((acc, item) => acc + item.weight, 0) / data.length)} lbs
-                </Typography>
-                <Typography variant="subtitle2" align="center">
-                    Avg Steps: {Math.round(data.reduce((acc, item) => acc + item.steps, 0) / data.length)}
-                </Typography>
-                <Typography variant="subtitle2" align="center">
-                    Avg Calories: {Math.round(data.reduce((acc, item) => acc + item.calories, 0) / data.length)}
-                </Typography>
-                <Typography variant="subtitle2" align="center">
-                    Avg Protein: {Math.round(data.reduce((acc, item) => acc + item.protein, 0) / data.length)} g
-                </Typography>
-                <Typography variant="subtitle2" align="center">
-                    Avg Sleep: {Math.round(data.reduce((acc, item) => acc + item.sleep, 0) / data.length)} hours
-                </Typography>
-            </Box>
+            <Typography variant="subtitle2" align="center" sx={{ mt: 2 }}>
+                Average: {average.toFixed(1)} {selectedMetric === 'weight' ? 'lbs' : ''}
+            </Typography>
         </Box>
     );
 };

@@ -10,20 +10,6 @@ body {
     overflow: auto; /* Allow scrolling */
 }
 
-.glass-box {
-    backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    transition: transform 0.3s ease;
-    transform-style: preserve-3d;
-}
-
-    .glass-box:hover {
-        transform: rotateY(5deg) rotateX(-5deg);
-    }
-
 .dashboard-container {
     display: flex;
     flex-direction: column;
@@ -32,32 +18,20 @@ body {
     gap: 1rem;
 }
 
+.recovery-score-container,
+.macrocycle-overview-container,
+.session-card {
+    margin: 0 10px;
+    width: 90%;
+}
+
 .glass-card {
     padding: 0.5rem;
     border-radius: 8px;
-    width: 90%;
     background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
     backdrop-filter: blur(10px);
-}
-
-.recovery-score-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 90%;
-    margin: 0 10px;
-}
-
-.macrocycle-overview-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 90%;
-    margin: 0 10px;
 }
 
 .arrow-button {
@@ -73,17 +47,7 @@ body {
         background-color: rgba(255, 255, 255, 0.3);
     }
 
-.session-card {
-    padding: 0.8rem;
-    border-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
-    backdrop-filter: blur(10px);
-}
-
 @media screen and (max-width: 768px) {
-    .glass-card,
     .recovery-score-container,
     .macrocycle-overview-container {
         width: 100%;

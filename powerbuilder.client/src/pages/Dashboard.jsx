@@ -2,16 +2,12 @@
 import RecoveryScoreChart from '../components/RecoveryScoreChart';
 import MacroCycleOverviewChart from '../components/MacroCycleOverviewChart';
 import PersonalBestCharts from '../components/PersonalBestCharts';
-import { Container, Box, Typography } from '@mui/material';
 import TrainingSessionsNavigation from '../components/TrainingSessionsNavigation';
+import { Container, Box, Typography } from '@mui/material';
+import '../css/styles.css';
 
 const Dashboard = () => {
     const [selectedWeek, setSelectedWeek] = useState(0);
-
-    const handleNavigateToTrackWorkout = (session) => {
-        console.log(`Navigating to Track Workout for ${session}`);
-        window.location.href = '/trackworkout';
-    };
 
     const handleWeekChange = (direction) => {
         if (direction === 'prev') {
@@ -23,19 +19,14 @@ const Dashboard = () => {
 
     return (
         <Container maxWidth="md" className="dashboard-container">
-            <Typography variant="h4" align="center" sx={{ mb: 3, fontWeight: 'bold' }}>
-                {new Date().toLocaleDateString('en-US', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                })}
-            </Typography>
+            {/* Recovery Metrics */}
+            <Box className="recovery-score-container">
+                <RecoveryScoreChart />
+            </Box>
 
-            <RecoveryScoreChart />
-
+            {/* MacroCycle Overview */}
             <Box className="macrocycle-overview-container">
-                <Typography variant="h5" align="center">
+                <Typography variant="h5" align="center" sx={{ mb: 2, fontWeight: 'bold' }}>
                     Week {selectedWeek + 1}
                 </Typography>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
@@ -47,12 +38,10 @@ const Dashboard = () => {
                         {'>'}
                     </button>
                 </Box>
-                <TrainingSessionsNavigation
-                    selectedWeek={selectedWeek}
-                    navigateToTrackWorkout={handleNavigateToTrackWorkout}
-                />
+                <TrainingSessionsNavigation selectedWeek={selectedWeek} />
             </Box>
 
+            {/* Personal Bests */}
             <PersonalBestCharts />
         </Container>
     );

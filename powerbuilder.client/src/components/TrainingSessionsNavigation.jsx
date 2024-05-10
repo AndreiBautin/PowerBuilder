@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
 
@@ -29,15 +29,24 @@ const sessions = [
     },
 ];
 
-const TrainingSessionsNavigation = ({ selectedWeek, navigateToTrackWorkout }) => {
-    const currentSession = sessions[selectedWeek % sessions.length];
+const TrainingSessionsNavigation = ({ selectedWeek }) => {
+    const [selectedSessionIndex, setSelectedSessionIndex] = useState(0);
+    const currentSession = sessions[selectedSessionIndex % sessions.length];
+
+    const handleSessionChange = (direction) => {
+        if (direction === 'prev') {
+            setSelectedSessionIndex((prev) => (prev > 0 ? prev - 1 : sessions.length - 1));
+        } else {
+            setSelectedSessionIndex((prev) => (prev < sessions.length - 1 ? prev + 1 : 0));
+        }
+    };
 
     return (
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 2 }}>
-            <Button className="arrow-button">
+            <Button className="arrow-button" onClick={() => handleSessionChange('prev')}>
                 <ArrowBack />
             </Button>
-            <Box className="session-card" sx={{ flexGrow: 1, textAlign: 'center', mx: 2 }}>
+            <Box className="session-card glass-card" sx={{ flexGrow: 1, textAlign: 'center', mx: 2 }}>
                 <Typography variant="h6">{currentSession.name}</Typography>
                 <Box>
                     {currentSession.exercises.map((exercise, index) => (
@@ -46,11 +55,11 @@ const TrainingSessionsNavigation = ({ selectedWeek, navigateToTrackWorkout }) =>
                         </Typography>
                     ))}
                 </Box>
-                <Button onClick={() => navigateToTrackWorkout(currentSession.name)}>
+                <Button>
                     Begin Session
                 </Button>
             </Box>
-            <Button className="arrow-button">
+            <Button className="arrow-button" onClick={() => handleSessionChange('next')}>
                 <ArrowForward />
             </Button>
         </Box>
