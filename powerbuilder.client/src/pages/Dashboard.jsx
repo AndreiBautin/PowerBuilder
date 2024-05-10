@@ -1,9 +1,11 @@
-﻿import React, { useState } from 'react';
+﻿// powerbuilder.client/src/pages/Dashboard.jsx
+import React, { useState } from 'react';
 import RecoveryScoreChart from '../components/RecoveryScoreChart';
 import MacroCycleOverviewChart from '../components/MacroCycleOverviewChart';
 import PersonalBestCharts from '../components/PersonalBestCharts';
 import TrainingSessionsNavigation from '../components/TrainingSessionsNavigation';
 import { Container, Box, Typography } from '@mui/material';
+import { ArrowBack, ArrowForward } from '@mui/icons-material';
 import '../css/styles.css';
 
 const Dashboard = () => {
@@ -19,9 +21,9 @@ const Dashboard = () => {
 
     return (
         <Container maxWidth="md" className="dashboard-container">
-            {/* Recovery Metrics */}
+             Recovery Metrics 
             <Box className="recovery-score-container">
-                <RecoveryScoreChart />
+                <RecoveryScoreChart />1
             </Box>
 
             {/* MacroCycle Overview */}
@@ -30,19 +32,21 @@ const Dashboard = () => {
                     Week {selectedWeek + 1}
                 </Typography>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
-                    <button className="arrow-button" onClick={() => handleWeekChange('prev')}>
-                        {'<'}
+                    <button className="small-blue-arrow" onClick={() => handleWeekChange('prev')}>
+                        <ArrowBack />
                     </button>
                     <MacroCycleOverviewChart selectedWeek={selectedWeek} />
-                    <button className="arrow-button" onClick={() => handleWeekChange('next')}>
-                        {'>'}
+                    <button className="small-blue-arrow" onClick={() => handleWeekChange('next')}>
+                        <ArrowForward />
                     </button>
                 </Box>
                 <TrainingSessionsNavigation selectedWeek={selectedWeek} />
             </Box>
 
             {/* Personal Bests */}
-            <PersonalBestCharts />
+            <Box className="personal-bests-container">
+                <PersonalBestCharts />
+            </Box>
         </Container>
     );
 };

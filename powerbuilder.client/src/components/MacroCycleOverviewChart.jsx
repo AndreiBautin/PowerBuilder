@@ -36,9 +36,6 @@ const MacroCycleOverviewChart = ({ selectedWeek }) => {
 
     return (
         <Box className="macrocycle-overview-container glass-card">
-            <Typography variant="h5" align="center" sx={{ mb: 2, fontWeight: 'bold' }}>
-                MacroCycle Overview
-            </Typography>
             <ResponsiveContainer width="100%" height={200}>
                 <ComposedChart data={highlightedData}>
                     <CartesianGrid strokeDasharray="3 3" />
