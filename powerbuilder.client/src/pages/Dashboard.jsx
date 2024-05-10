@@ -1,6 +1,5 @@
-﻿// powerbuilder.client/src/pages/Dashboard.jsx
-import React, { useState } from 'react';
-import RecoveryMetrics from '../components/RecoveryMetrics';
+﻿import React, { useState } from 'react';
+import RecoveryScoreChart from '../components/RecoveryScoreChart';
 import MacroCycleOverviewChart from '../components/MacroCycleOverviewChart';
 import PersonalBestCharts from '../components/PersonalBestCharts';
 import { Container, Box, Typography } from '@mui/material';
@@ -11,8 +10,7 @@ const Dashboard = () => {
 
     const handleNavigateToTrackWorkout = (session) => {
         console.log(`Navigating to Track Workout for ${session}`);
-        // Replace with your navigation logic
-        window.location.href = '/track-workout';
+        window.location.href = '/trackworkout';
     };
 
     const handleWeekChange = (direction) => {
@@ -25,7 +23,6 @@ const Dashboard = () => {
 
     return (
         <Container maxWidth="md" className="dashboard-container">
-            {/* Header Date */}
             <Typography variant="h4" align="center" sx={{ mb: 3, fontWeight: 'bold' }}>
                 {new Date().toLocaleDateString('en-US', {
                     weekday: 'long',
@@ -35,10 +32,8 @@ const Dashboard = () => {
                 })}
             </Typography>
 
-            {/* Recovery Metrics */}
-            <RecoveryMetrics />
+            <RecoveryScoreChart />
 
-            {/* MacroCycle Overview */}
             <Box className="macrocycle-overview-container">
                 <Typography variant="h5" align="center">
                     Week {selectedWeek + 1}
@@ -58,7 +53,6 @@ const Dashboard = () => {
                 />
             </Box>
 
-            {/* Personal Bests */}
             <PersonalBestCharts />
         </Container>
     );

@@ -1,4 +1,3 @@
-// powerbuilder.client/src/components/RecoveryScoreChart.jsx
 import React from 'react';
 import {
     ResponsiveContainer,
@@ -44,19 +43,19 @@ const RecoveryScoreChart = () => {
             </ResponsiveContainer>
             <Box sx={{ mt: 2 }}>
                 <Typography variant="subtitle2" align="center">
-                    Avg Weight: {data.reduce((acc, item) => acc + item.weight, 0) / data.length} lbs
+                    Avg Weight: {Math.round(data.reduce((acc, item) => acc + item.weight, 0) / data.length)} lbs
                 </Typography>
                 <Typography variant="subtitle2" align="center">
-                    Avg Steps: {data.reduce((acc, item) => acc + item.steps, 0) / data.length}
+                    Avg Steps: {Math.round(data.reduce((acc, item) => acc + item.steps, 0) / data.length)}
                 </Typography>
                 <Typography variant="subtitle2" align="center">
-                    Avg Calories: {data.reduce((acc, item) => acc + item.calories, 0) / data.length}
+                    Avg Calories: {Math.round(data.reduce((acc, item) => acc + item.calories, 0) / data.length)}
                 </Typography>
                 <Typography variant="subtitle2" align="center">
-                    Avg Protein: {data.reduce((acc, item) => acc + item.protein, 0) / data.length} g
+                    Avg Protein: {Math.round(data.reduce((acc, item) => acc + item.protein, 0) / data.length)} g
                 </Typography>
                 <Typography variant="subtitle2" align="center">
-                    Avg Sleep: {data.reduce((acc, item) => acc + item.sleep, 0) / data.length} hours
+                    Avg Sleep: {Math.round(data.reduce((acc, item) => acc + item.sleep, 0) / data.length)} hours
                 </Typography>
             </Box>
         </Box>

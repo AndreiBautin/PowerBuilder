@@ -1,4 +1,3 @@
-// powerbuilder.client/src/components/PersonalBestCharts.jsx
 import React from 'react';
 import {
     ResponsiveContainer,

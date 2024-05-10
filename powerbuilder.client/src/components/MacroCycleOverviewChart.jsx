@@ -1,4 +1,3 @@
-// powerbuilder.client/src/components/MacroCycleOverviewChart.jsx
 import React from 'react';
 import {
     ResponsiveContainer,

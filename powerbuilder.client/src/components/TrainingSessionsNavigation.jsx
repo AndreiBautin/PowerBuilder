@@ -1,4 +1,3 @@
-// powerbuilder.client/src/components/TrainingSessionsNavigation.jsx
 import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
